@@ -69,7 +69,7 @@ class SHFile(object):
             'export PYTHONPATH="${pip_install_dir}/lib/python2.7/site-packages:${PYTHONPATH}"',
             '',
             'echo $(pwd)',
-            'xrdcp root://cmseos.fnal.gov//store/user/jkrupa/out.root .',
+            'xrdcp root://cmseos.fnal.gov//store/user/kdlin/deepcalo_all.bin .',
             'pip -V',
             'which pip',
             ''
@@ -134,11 +134,24 @@ class Submitter(object):
             'log' : 'log_$(Cluster)_$(Process).txt',
             'should_transfer_files' : 'YES',
             'Transfer_output_files' : '',
-            '+DESIRED_Sites' : "T2_US_Wisconsin",
-            'use_x509userproxy' : 'True',  
-            'x509userproxy' : '/tmp/x509up_u2296',
-            '+AccountingGroup' : "analysis.jkrupa",
-            '+ProjectName' : 'sonic',
+            #'+SingularityImage' :  '/cvmfs/singularity.opensciencegrid.org/cmssw/cms:rhel7/',
+            #'+SingularityBindCVMFS' : 'True',
+            'RequestDisk' : '10',
+            'RequestCpus' : '1',
+            '+Require_CVMFS' : 'True',
+            '+VO' : '"cms"',
+            '+REQUIRED_OS' : '"sl7"',
+            '+CMS_JobType' : '"Production"',
+            '+MaxWallTimeMins' : '120',
+            '+JOB_EXPECTED_MAX_LIFETIME' : '7200',
+            '+JobPrio' : '200000',
+            '+DESIRED_Sites' : '"T3_US_HEPCloud"',
+            '+RequestMaxInputRate' : '10',            
+            '+RequestMaxOutputRate' : '10',            
+            '+RequestMaxInputDataSize' : '10',            
+            '+RequestMaxOutputDataSize' : '10',  
+            #'+AccountingGroup' : "analysis.jkrupa",          
+            #'x509userproxy' : '/tmp/x509up_u54733',  
             'environment' : {
                 'QONDOR_BATCHMODE' : '1',
                 'CONDOR_CLUSTER_NUMBER' : '$(Cluster)',
@@ -156,7 +169,7 @@ class Submitter(object):
                 'htcondor setup requires it.'
                 )
         try:
-            sub['environment']['USER'] = 'jkrupa' #os.environ['jkrupa']
+            sub['environment']['USER'] = 'kdlin' #os.environ['jkrupa']
         except KeyError:
             # No user specified, no big deal
             pass
