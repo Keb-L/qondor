@@ -68,6 +68,8 @@ class SHFile(object):
             'export PATH="${pip_install_dir}/bin:${PATH}"',
             'export PYTHONPATH="${pip_install_dir}/lib/python2.7/site-packages:${PYTHONPATH}"',
             '',
+            'echo $(pwd)',
+            'xrdcp root://cmseos.fnal.gov//store/user/jkrupa/out.root .',
             'pip -V',
             'which pip',
             ''
@@ -83,6 +85,7 @@ class SHFile(object):
                 lines.extend([
                     'mkdir {0}'.format(package),
                     'tar xf {0}.tar -C {0}'.format(package),
+
                     'pip install --install-option="--prefix=${{pip_install_dir}}" -e {0}/'.format(package)
                     ])
             elif install_instruction == 'install':
@@ -130,6 +133,12 @@ class Submitter(object):
             'error' : 'err_$(Cluster)_$(Process).txt',
             'log' : 'log_$(Cluster)_$(Process).txt',
             'should_transfer_files' : 'YES',
+            'Transfer_output_files' : '',
+            '+DESIRED_Sites' : "T2_US_Wisconsin",
+            'use_x509userproxy' : 'True',  
+            'x509userproxy' : '/tmp/x509up_u2296',
+            '+AccountingGroup' : "analysis.jkrupa",
+            '+ProjectName' : 'sonic',
             'environment' : {
                 'QONDOR_BATCHMODE' : '1',
                 'CONDOR_CLUSTER_NUMBER' : '$(Cluster)',
@@ -147,7 +156,7 @@ class Submitter(object):
                 'htcondor setup requires it.'
                 )
         try:
-            sub['environment']['USER'] = os.environ['USER']
+            sub['environment']['USER'] = 'jkrupa' #os.environ['jkrupa']
         except KeyError:
             # No user specified, no big deal
             pass
@@ -222,7 +231,7 @@ class Submitter(object):
             sub[key] = value
 
         # Flatten files in a string
-        transfer_files = self.transfer_files + self.preprocessing.files.values()
+        transfer_files = self.transfer_files + list(self.preprocessing.files.values())
         if len(transfer_files) > 0:
             sub['transfer_input_files'] = ','.join(transfer_files)
         
