@@ -70,8 +70,9 @@ class SHFile(object):
             '',
             'pip -V',
             'which pip',
-            'xrdcp root://cmseos.fnal.gov//store/user/kdlin/deepcalo_all.bin .'
-            ]
+            'xrdcp root://cmseos.fnal.gov//store/user/kdlin/deepcalo_all.bin .',
+            'xrdcp root://cmseos.fnal.gov//store/user/pedrok/sonic/store_mc_RunIISpring18MiniAOD_BulkGravTohhTohbbhbb_narrow_M-2000_13TeV-madgraph_MINIAODSIM_100X_upgrade2018_realistic_v10-v1_30000_24A0230C-B530-E811-ADE3-14187741120B.root .'    
+	]
         return lines
 
     def pip_installations(self):
