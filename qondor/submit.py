@@ -70,7 +70,7 @@ class SHFile(object):
             '',
             'pip -V',
             'which pip',
-	    'xrdcp root://cmseos.fnal.gov//store/user/kdlin/data/deepcalo_all.bin .',
+	    'xrdcp root://cmseos.fnal.gov//store/user/kdlin/data/deepcalo_5000.bin .',
             'xrdcp root://cmseos.fnal.gov//store/user/kdlin/data/skim1000.root .'	
 	]
         return lines

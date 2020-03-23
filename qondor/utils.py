@@ -371,9 +371,6 @@ def convert_to_utc(local_time):
     get seriously used.
     """
     # See: https://stackoverflow.com/a/10854983/9209944
-    #delta = datetime.timedelta(
-    #	seconds=(datetime.datetime.utcnow() - datetime.datetime.now()).total_seconds()
-    #	)
     delta = datetime.timedelta(
         seconds = time.timezone if (time.localtime().tm_isdst == 0) else time.altzone
         )
@@ -383,7 +380,6 @@ def convert_to_utc(local_time):
 
 def get_now_utc():
     return convert_to_utc(datetime.datetime.now())
-    #return datetime.datetime.utcnow()
 
 def sleep_until(runtime_utc, allowed_lateness=300, is_not_utc=False):
     if is_not_utc:
