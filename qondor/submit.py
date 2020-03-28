@@ -69,9 +69,7 @@ class SHFile(object):
             'export PYTHONPATH="${pip_install_dir}/lib/python2.7/site-packages:${PYTHONPATH}"',
             '',
             'pip -V',
-            'which pip',
-	    'xrdcp root://cmseos.fnal.gov//store/user/kdlin/data/deepcalo_5000.bin .',
-            'xrdcp root://cmseos.fnal.gov//store/user/kdlin/data/skim1000.root .'	
+            'which pip'	
 	]
         return lines
 
